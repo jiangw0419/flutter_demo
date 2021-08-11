@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/widget/loding_widget.dart';
 
 class BaseChangeNotify with ChangeNotifier {
   var _dispose = false;
+  ViewState viewState = ViewState.loading;
 
   @override
   void dispose() {

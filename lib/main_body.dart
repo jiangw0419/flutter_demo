@@ -26,16 +26,16 @@ class _MainBodyState extends State<MainBody> {
           builder: (context,model,child){
             debugPrint("body-child=$child----model=${model.currentIndex}----context=$context");
             return PageView(
-              // physics: NeverScrollableScrollPhysics(),
+              physics: NeverScrollableScrollPhysics(),
               children: _children(),
               controller: _controller,
-              onPageChanged: (index){
-                if(model.currentIndex != index){
-                  model.jumpToPage(index);
-                  setState(() {
-                  });
-                }
-              },
+              // onPageChanged: (index){
+              //   if(model.currentIndex != index){
+              //     model.jumpToPage(index);
+              //     setState(() {
+              //     });
+              //   }
+              // },
             );
           },
         ),
