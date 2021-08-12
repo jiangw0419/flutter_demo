@@ -10,7 +10,7 @@ abstract class ListBodyViewModel<T, M extends PagingModel<T>>
   List<T> itemList = [];
   String nextPageUrl;
 
-  RefreshController _refreshController =
+  RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
   //请求返回的真实数据模型
@@ -27,22 +27,22 @@ abstract class ListBodyViewModel<T, M extends PagingModel<T>>
 
           //下一页数据
           nextPageUrl = getNextUrl(model);
-          _refreshController.refreshCompleted();
-          _refreshController.footerMode.value = LoadStatus.canLoading;
+          refreshController.refreshCompleted();
+          refreshController.footerMode.value = LoadStatus.canLoading;
           //额外操作
           doExtraAfter();
         },
         fail: (e) {
           WgToast.showError(e.toString());
           viewState = ViewState.error;
-          _refreshController.refreshFailed();
+          refreshController.refreshFailed();
         },
         complete: () => notifyListeners());
   }
 
   Future<void> loadMore() async {
     if (nextPageUrl == null) {
-      _refreshController.loadNoData();
+      refreshController.loadNoData();
       return;
     }
     HttpManager.getData(
@@ -52,13 +52,13 @@ abstract class ListBodyViewModel<T, M extends PagingModel<T>>
           filterData(model.itemList);
           itemList.addAll(model.itemList);
           nextPageUrl = getNextUrl(model);
-          _refreshController.refreshCompleted();
+          refreshController.refreshCompleted();
           notifyListeners();
         },
         fail: (e) {
           WgToast.showError(e.toString());
           viewState = ViewState.error;
-          _refreshController.refreshFailed();
+          refreshController.refreshFailed();
         },
         complete: () => notifyListeners());
   }
@@ -80,8 +80,6 @@ abstract class ListBodyViewModel<T, M extends PagingModel<T>>
   }
 
   String getUrl();
-
-  List<T> parserData(json);
 
   void filterData(List<T> t);
 

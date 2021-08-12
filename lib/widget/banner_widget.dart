@@ -26,7 +26,8 @@ class _BannerWidgetState extends State<BannerWidget> {
                   borderRadius: BorderRadius.circular(4),
                   image: DecorationImage(
                     image: cacheNetworkImage(
-                        widget.model.bannerList[index].data.cover.feed),
+                      _cover(widget.model,  index)),
+                        // widget.model.bannerList[index].data.cover.feed),
                     fit: BoxFit.cover,
                   )),
               // child:cacheNetworkImage(widget.model.bannerList[index].data.cover.feed),
@@ -59,4 +60,9 @@ class _BannerWidgetState extends State<BannerWidget> {
           builder: DotSwiperPaginationBuilder()),
     );
   }
+}
+
+String _cover(HomeBodyViewModel model,int index){
+  debugPrint("bannerItem4=${model.bannerList[index].data.cover.feed}");
+  return model.bannerList[index].data.cover.feed;
 }

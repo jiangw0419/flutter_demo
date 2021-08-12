@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/config/color.dart';
 import 'package:flutter_demo/config/string.dart';
-import 'package:flutter_demo/page/home/home_body.dart';
+import 'package:flutter_demo/page/home/home_page.dart';
 import 'package:flutter_demo/utils/toast_utils.dart';
 import 'package:flutter_demo/viewmodel/main_body_viewmodel.dart';
 import 'package:flutter_demo/viewmodel/provider_widget.dart';
@@ -69,7 +69,7 @@ class _MainBodyState extends State<MainBody> {
 
   List<Widget> _children() {
     return [
-      HomeBodyPage(),
+      HomePage(),
       Container(
         color: Colors.blue,
       ),

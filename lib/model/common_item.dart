@@ -74,6 +74,11 @@ class Item {
     data['adIndex'] = this.adIndex;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Item{type: $type, data: $data, trackingData: $trackingData, tag: $tag, id: $id, adIndex: $adIndex}';
+  }
 }
 
 class Data {
@@ -590,6 +595,11 @@ class Cover {
     data['sharing'] = this.sharing;
     data['homepage'] = this.homepage;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Cover{feed: $feed, detail: $detail, blurred: $blurred, sharing: $sharing, homepage: $homepage}';
   }
 }
 
