@@ -134,6 +134,7 @@ class Data {
   Null playlists;
   Null src;
   Null recallSource;
+  String text;
 
   Data(
       {this.dataType,
@@ -187,7 +188,8 @@ class Data {
       this.lastViewTime,
       this.playlists,
       this.src,
-      this.recallSource});
+      this.recallSource,
+      this.text});
 
   Data.fromJson(Map<String, dynamic> json) {
     dataType = json['dataType'];
@@ -257,6 +259,7 @@ class Data {
     src = json['src'];
     recallSource = json['recallSource'];
     recallSource = json['recall_source'];
+    text = json['text'];
   }
 
   Map<String, dynamic> toJson() {
@@ -327,6 +330,7 @@ class Data {
     data['src'] = this.src;
     data['recallSource'] = this.recallSource;
     data['recall_source'] = this.recallSource;
+    data['text'] = this.text;
     return data;
   }
 }

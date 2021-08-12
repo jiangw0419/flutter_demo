@@ -63,6 +63,6 @@ class _BannerWidgetState extends State<BannerWidget> {
 }
 
 String _cover(HomeBodyViewModel model,int index){
-  debugPrint("bannerItem4=${model.bannerList[index].data.cover.feed}");
+  // debugPrint("bannerItem4=${model.bannerList[index].data.cover.feed}");
   return model.bannerList[index].data.cover.feed;
 }
