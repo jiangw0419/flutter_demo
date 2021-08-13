@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/http/cache_network_image_provider.dart';
+import 'package:flutter_demo/utils/navigator_utils.dart';
+import 'package:flutter_demo/utils/route_material_app_utils.dart';
 import 'package:flutter_demo/utils/toast_utils.dart';
 import 'package:flutter_demo/viewmodel/home/home_body_viewmodel.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -25,9 +27,8 @@ class _BannerWidgetState extends State<BannerWidget> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   image: DecorationImage(
-                    image: cacheNetworkImage(
-                      _cover(widget.model,  index)),
-                        // widget.model.bannerList[index].data.cover.feed),
+                    image: cacheNetworkImage(_cover(widget.model, index)),
+                    // widget.model.bannerList[index].data.cover.feed),
                     fit: BoxFit.cover,
                   )),
               // child:cacheNetworkImage(widget.model.bannerList[index].data.cover.feed),
@@ -52,7 +53,8 @@ class _BannerWidgetState extends State<BannerWidget> {
         );
       },
       onTap: (index) {
-        WgToast.showTip("点击了第$index个banner");
+        debugPrint("点击了第$index个banner");
+        toName(ROUTE_VIDEO_DETIAL, arguments: widget.model.bannerList[index].data);
       },
       itemCount: widget.model.bannerList.length,
       pagination: SwiperPagination(
@@ -62,7 +64,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   }
 }
 
-String _cover(HomeBodyViewModel model,int index){
+String _cover(HomeBodyViewModel model, int index) {
   // debugPrint("bannerItem4=${model.bannerList[index].data.cover.feed}");
   return model.bannerList[index].data.cover.feed;
 }

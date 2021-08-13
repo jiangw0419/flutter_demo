@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo/app_init.dart';
 import 'package:flutter_demo/main_body.dart';
+import 'package:flutter_demo/utils/route_material_app_utils.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,11 +23,11 @@ class MyApp extends StatelessWidget {
         future: AppInit.init(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return GetMaterialApp(
-              child:MainBody(),
+            return GetMaterialAppWidget(
+              child: MainBody(),
             );
           } else {
-            return GetMaterialApp(
+            return GetMaterialAppWidget(
               child: SplashWidget(),
             );
           }
@@ -43,25 +44,5 @@ class SplashWidget extends StatelessWidget {
         body: Center(
       child: CircularProgressIndicator(),
     ));
-  }
-}
-
-class GetMaterialApp extends StatefulWidget {
-  final Widget child;
-
-  const GetMaterialApp({Key key, this.child}) : super(key: key);
-
-  @override
-  _GetMaterialApp createState() => _GetMaterialApp();
-}
-
-class _GetMaterialApp extends State<GetMaterialApp> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "flutter_demo",
-      initialRoute: "/",
-      routes: {"/": (context) => widget.child},
-    );
   }
 }

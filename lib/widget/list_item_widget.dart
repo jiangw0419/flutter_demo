@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/http/cache_network_image_provider.dart';
 import 'package:flutter_demo/model/common_item.dart';
 import 'package:flutter_demo/utils/date_format_utils.dart';
+import 'package:flutter_demo/utils/navigator_utils.dart';
+import 'package:flutter_demo/utils/route_material_app_utils.dart';
 import 'package:flutter_demo/utils/share_utils.dart';
 
 class ListItemWidget extends StatefulWidget {
@@ -117,6 +119,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
     return GestureDetector(
         onTap: () {
           debugPrint("点击了，${item.data.id}");
+          toName(ROUTE_VIDEO_DETIAL, arguments: item.data);
         },
         child: Padding(
           padding: EdgeInsets.only(left: 15, right: 15),
