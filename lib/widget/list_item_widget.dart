@@ -27,14 +27,28 @@ class _ListItemWidgetState extends State<ListItemWidget> {
       children: <Widget>[
         _cover(widget.item),
         _author(widget.item),
+        _divider(),
       ],
+    );
+  }
+
+  _divider() {
+    return Offstage(
+      offstage: widget.showDivider,
+      child: Padding(
+        padding: EdgeInsets.only(left: 15, right: 15),
+        child: Divider(
+          color: Colors.black12,
+          height: 0.5,
+        ),
+      ),
     );
   }
 
   _author(Item item) {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
-      padding: EdgeInsets.only(left: 15, right: 15),
+      padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       child: Row(
         children: <Widget>[
           _authorIcon(),
@@ -69,6 +83,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                     ? widget.item.data.title
                     : widget.item.data.author.name,
                 overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: TextStyle(
                     fontSize: 14,
                     color: Colors.black,
@@ -78,6 +93,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                 widget.item.data.author.description == null
                     ? widget.item.data.description
                     : widget.item.data.author.description,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 12, color: Colors.black54),
               )
