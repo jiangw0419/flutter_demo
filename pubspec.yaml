@@ -48,6 +48,10 @@ dependencies:
   pull_to_refresh: ^2.0.0
   flustars: ^2.0.1
   share_plus: ^2.1.4
+  #播放器
+  video_player: ^2.1.14
+  #播放器控制器
+  chewie: ^1.2.2
 
 
 

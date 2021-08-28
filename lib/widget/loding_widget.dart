@@ -44,9 +44,11 @@ class _ErrorWidgetState extends State<_ErrorWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _children(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _children(),
+        ),
       ),
     );
   }

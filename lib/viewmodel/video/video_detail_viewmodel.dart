@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_demo/http/http_manager.dart';
 import 'package:flutter_demo/http/url.dart';
 import 'package:flutter_demo/model/common_item.dart';
@@ -22,6 +23,7 @@ class VideoDetailViewModel extends BaseChangeNotify {
         },
         fail: (e) {
           viewState = ViewState.error;
+          debugPrint("fail-error=${e.toString()}");
           WgToast.showError(e.toString());
         },
         complete: () {

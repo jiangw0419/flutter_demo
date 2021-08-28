@@ -40,8 +40,8 @@ class Issue extends PagingModel<Item> {
 class Item {
   String type;
   Data data;
-  Null trackingData;
-  Null tag;
+  dynamic trackingData;
+  dynamic tag;
   int id;
   int adIndex;
 
@@ -89,9 +89,9 @@ class Data {
   String image;
   String actionUrl;
   bool shade;
-  Null label;
-  List<Null> labelList;
-  Null header;
+  dynamic label;
+  List<dynamic> labelList;
+  dynamic header;
   bool autoPlay;
   String library;
   List<Tags> tags;
@@ -108,8 +108,8 @@ class Data {
   WebUrl webUrl;
   int releaseTime;
   List<PlayInfo> playInfo;
-  Null campaign;
-  Null waterMarks;
+  dynamic campaign;
+  dynamic waterMarks;
   bool ad;
   String type;
   String titlePgc;
@@ -117,23 +117,23 @@ class Data {
   String remark;
   bool ifLimitVideo;
   int searchWeight;
-  Null brandWebsiteInfo;
-  Null videoPosterBean;
+  dynamic brandWebsiteInfo;
+  dynamic videoPosterBean;
   int idx;
-  Null shareAdTrack;
-  Null favoriteAdTrack;
-  Null webAdTrack;
+  dynamic shareAdTrack;
+  dynamic favoriteAdTrack;
+  dynamic webAdTrack;
   int date;
-  Null promotion;
+  dynamic promotion;
   String descriptionEditor;
   bool collected;
   bool reallyCollected;
   bool played;
-  List<Null> subtitles;
-  Null lastViewTime;
-  Null playlists;
-  Null src;
-  Null recallSource;
+  List<dynamic> subtitles;
+  dynamic lastViewTime;
+  dynamic playlists;
+  dynamic src;
+  dynamic recallSource;
   String text;
 
   Data(
@@ -339,16 +339,16 @@ class Tags {
   int id;
   String name;
   String actionUrl;
-  Null adTrack;
+  dynamic adTrack;
   String desc;
   String bgPicture;
   String headerImage;
   String tagRecType;
-  Null childTagList;
-  Null childTagIdList;
+  dynamic childTagList;
+  dynamic childTagIdList;
   bool haveReward;
   bool ifNewest;
-  Null newestEndTime;
+  dynamic newestEndTime;
   int communityIndex;
 
   Tags(

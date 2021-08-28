@@ -7,9 +7,9 @@ import 'package:flutter_demo/model/common_item.dart';
 import 'package:flutter_demo/utils/navigator_utils.dart';
 import 'package:flutter_demo/viewmodel/provider_widget.dart';
 import 'package:flutter_demo/viewmodel/video/video_detail_viewmodel.dart';
-import 'package:flutter_demo/widget/appbar_widget.dart';
 import 'package:flutter_demo/widget/loding_widget.dart';
 import 'package:flutter_demo/widget/video/video_detail_list_item_widget.dart';
+import 'package:flutter_demo/widget/video/video_player_widget.dart';
 
 const VIDEO_SMALL_CARD_TYPE = 'videoSmallCard';
 
@@ -22,13 +22,37 @@ class VideoDetailPage extends StatefulWidget {
   _VideoDetailPageState createState() => _VideoDetailPageState();
 }
 
-class _VideoDetailPageState extends State<VideoDetailPage> {
+class _VideoDetailPageState extends State<VideoDetailPage>
+ with WidgetsBindingObserver{
   Data data;
+  // 允许element在树周围移动(改变父节点), 而不会丢失状态
+  final GlobalKey<VideoPlayerWidgetState> videoKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     data = arguments() == null ? widget.videoData : arguments();
+    WidgetsBinding.instance.addObserver(this);
+
+  }
+  @override
+  void dispose() {
+    //移除监听页面可见与不可见状态
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+ @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+   //AppLifecycleState当前页面的状态(是否可见)
+   if (state == AppLifecycleState.paused) {
+     // 页面不可见时,暂停视频
+     // videoKey.currentState：树中当前具有此全局密钥的小部件的State对象
+     videoKey.currentState.pause();
+   } else if (state == AppLifecycleState.resumed) {
+     videoKey.currentState.play();
+   }
+    // super.didChangeAppLifecycleState(state);
   }
 
   @override
@@ -57,6 +81,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             value: SystemUiOverlayStyle.light),
 
         ///视频播放器
+        VideoPlayerWidget(key: videoKey,playUrl: data.playUrl,),
+        ///视频播放器底部描述信息
         _videoTextInfo(model),
       ],
     );
@@ -73,6 +99,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: cacheNetworkImage(
+                      // "${data.cover.blurred}")),
                       "${data.cover.blurred}}/thumbnail/${MediaQuery.of(context).size.height}x${MediaQuery.of(context).size.width}")),
               // "${data.cover.blurred}")),
             ),

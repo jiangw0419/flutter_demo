@@ -13,6 +13,7 @@ class HttpManager {
       Function fail,
       Function complete}) async {
     try {
+      debugPrint("getData-url=$url");
       var response = await http.get(Uri.parse(url), headers: Url.httpHeader);
       if (response.statusCode == 200) {
         var result = json.decode(utf8decoder.convert(response.bodyBytes));
@@ -35,6 +36,7 @@ class HttpManager {
 
   static Future requestData(String url) async {
     try {
+      debugPrint("requestData-url=$url");
       var response = await http.get(Uri.parse(url), headers: Url.httpHeader);
       if (response.statusCode == 200) {
         return json.decode(utf8decoder.convert(response.bodyBytes));
