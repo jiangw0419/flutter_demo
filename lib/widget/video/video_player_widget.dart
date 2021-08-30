@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/widget/video/video_player_controller_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -40,6 +41,7 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       allowFullScreen: widget.allowFullScreen,
       aspectRatio: widget.aspectRatio,
       allowPlaybackSpeedChanging: widget.allowPlaybackSpeedChanging,
+      customControls: VideoPlayerControllerWidget(),
     );
   }
 

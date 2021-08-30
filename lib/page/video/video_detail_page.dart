@@ -23,8 +23,9 @@ class VideoDetailPage extends StatefulWidget {
 }
 
 class _VideoDetailPageState extends State<VideoDetailPage>
- with WidgetsBindingObserver{
+    with WidgetsBindingObserver {
   Data data;
+
   // 允许element在树周围移动(改变父节点), 而不会丢失状态
   final GlobalKey<VideoPlayerWidgetState> videoKey = GlobalKey();
 
@@ -33,8 +34,8 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     super.initState();
     data = arguments() == null ? widget.videoData : arguments();
     WidgetsBinding.instance.addObserver(this);
-
   }
+
   @override
   void dispose() {
     //移除监听页面可见与不可见状态
@@ -42,49 +43,53 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     super.dispose();
   }
 
- @override
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-   //AppLifecycleState当前页面的状态(是否可见)
-   if (state == AppLifecycleState.paused) {
-     // 页面不可见时,暂停视频
-     // videoKey.currentState：树中当前具有此全局密钥的小部件的State对象
-     videoKey.currentState.pause();
-   } else if (state == AppLifecycleState.resumed) {
-     videoKey.currentState.play();
-   }
+    //AppLifecycleState当前页面的状态(是否可见)
+    if (state == AppLifecycleState.paused) {
+      // 页面不可见时,暂停视频
+      // videoKey.currentState：树中当前具有此全局密钥的小部件的State对象
+      videoKey.currentState.pause();
+    } else if (state == AppLifecycleState.resumed) {
+      videoKey.currentState.play();
+    }
     // super.didChangeAppLifecycleState(state);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ProviderWidget<VideoDetailViewModel>(
-        model: VideoDetailViewModel(),
-        onInitModel: (model) => model.loadVideoData(data.id),
-        builder: (context, model, child) {
-          return _videoWidget(model);
-        },
-      ),
+    return ProviderWidget<VideoDetailViewModel>(
+      model: VideoDetailViewModel(),
+      onInitModel: (model) => model.loadVideoData(data.id),
+      builder: (context, model, child) {
+        return _videoWidget(model);
+      },
     );
   }
 
   _videoWidget(model) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ///状态栏，
-        AnnotatedRegion(
-            child: Container(
-              color: Colors.black,
-              height: MediaQuery.of(context).padding.top,
-            ),
-            value: SystemUiOverlayStyle.light),
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ///视频横竖屏切换，绘制界面超限 TODO
+          ///状态栏
+          AnnotatedRegion(
+              child: Container(
+                color: Colors.black,
+                height: MediaQuery.of(context).padding.top,
+              ),
+              value: SystemUiOverlayStyle.light),
+          ///视频播放器
+          VideoPlayerWidget(
+            key: videoKey,
+            playUrl: data.playUrl,
+          ),
 
-        ///视频播放器
-        VideoPlayerWidget(key: videoKey,playUrl: data.playUrl,),
-        ///视频播放器底部描述信息
-        _videoTextInfo(model),
-      ],
+          ///视频播放器底部描述信息
+          _videoTextInfo(model),
+        ],
+      ),
     );
   }
 
@@ -96,11 +101,9 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           retry: model.retry,
           child: Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: cacheNetworkImage(
-                      // "${data.cover.blurred}")),
-                      "${data.cover.blurred}}/thumbnail/${MediaQuery.of(context).size.height}x${MediaQuery.of(context).size.width}")),
+              image: DecorationImage(fit: BoxFit.cover, image: cacheNetworkImage(
+                  // "${data.cover.blurred}")),
+                  "${data.cover.blurred}}/thumbnail/${MediaQuery.of(context).size.height}x${MediaQuery.of(context).size.width}")),
               // "${data.cover.blurred}")),
             ),
             child: CustomScrollView(
